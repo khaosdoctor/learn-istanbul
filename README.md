@@ -19,59 +19,53 @@
 
 ![Sign Not In Use](https://cloud.githubusercontent.com/assets/194400/14234939/5e182636-f9e7-11e5-9fa3-7509389416be.jpeg "Sign not in use!")
 
-## Why?
+## Por que?
 
-Like the road sign that is "***Not In Use***" too much code
-being written ***never*** gets ***executed***.
+Como a placa que "***Não está em uso***" muito código escrito ***nunca*** chega a ser ***executado***.
 
-There are a *few* obvious issues with this:
-1. if un-tested code remains in the codebase it can contain ***unknown behaviour*** e.g. ***bugs***.
-2. untested features are more ***difficult to maintain*** without introducing ***breaking changes***.
-3. un-tested code can ***clutter*** a project and accumulates [***technical debt***](https://en.wikipedia.org/wiki/Technical_debt) that ***wastes time***.
+Existem *alguns* problemas óbvios com isso:
+1. Se um código não testado fica na base ele pode conter um ***comportamento desconhecido***, por exemplo, ***bugs***.
+2. Recursos não testados são mais ***difíceis de manter*** sem introduzir as chamadas ***breaking changes*** (mudanças que quebram a compatibilidade com a versão anterior).
+3. Código não testado pode ***desordenar*** um projeto e acumular [***débito técnico***](https://en.wikipedia.org/wiki/Technical_debt) o que é uma ***perda de tempo***
 
-## What?
+## O que?
 
-**Code coverage** tells you when code you have written is being executed
-so you can decide if un-covered lines are [superfluous](https://www.google.com/search?q=superfluous)
-(*and can be removed*) *or* require additional testing.
+**Code coverage** (Cobertura de código em livre tradução) te diz quais códigos que você escreveu estão, de fato, sendo executados. Desta forma você pode decidir se as linhas que não estão cobertas pelo *coverage* são [supérfluas](https://www.google.com.br/search?q=superflo&gws_rd=cr&ei=rqznWLy5E8mxwASDjqWwDg#safe=off&q=sup%C3%A9rfluo)
+(*e podem ser removidas*) *ou* requerem testes adicionais.
 
-The rest of this page will focus on *practical* usage example, so
-if you are completely new to Code Coverage we recommend you read the
-wikipedia article: http://en.wikipedia.org/wiki/Code_coverage first.
+O resto desta página vai focar na parte *prática*, então, se você é completamente novo em Code Coverage, nós recomendamos que você leia [este artigo da wikipédia](http://en.wikipedia.org/wiki/Code_coverage) antes
 
-*Istanbul* is a code coverage analysis script you run when executing your unit tests:
+*Istanbul* É um script de análise de code coverage que você pode rodar quando executa seus testes unitários:
 https://github.com/gotwarlost/istanbul/
-we like it because it's simple and prints out nice html reports (*see below*)
 
+Gostamos dele porque é simples e printa relatórios HTML bastante bonitos (*veja abaixo*).
 
+## Como?
 
-## How?
+### Instalação
 
-### Installation
-
-We prefer to install istanbul as a "*devDependencies*" in each of our projects:
+Nós preferimos instalar o istanbul como uma "*devDependency*" em cada um de nossos projetos:
 
 ```sh
 npm install istanbul --save-dev
 ```
 
-to check if the installation worked, (*copy-paste and*) run the following command
-in your terminal:
+Para checar se tudo correu bem, copie e rode o código a seguir no terminal:
 
 ```sh
 node_modules/.bin/istanbul help
 ```
 
 
-### Simple Example
+### Exemplo simples
 
-For our first example create a file called `test.js`.
+Para nosso primeiro exemplo, vamos criar um arquivo chamado `test.js`.
 
 ```sh
 vi test.js
 ```
 
-type (*or copy-paste*) the following code in the `test.js` file:
+digite (ou copie) o código a seguir dentro do arquivo criado:
 
 ```javascript
 x = 42;
@@ -79,131 +73,115 @@ if(false)
      x =-1;
 ```
 
-Now run the istanbul command to generate a coverage report:
+Agora execute o comando do istanbul para gerar um relatório de execução:
 
 ```sh
 node ./node_modules/.bin/istanbul cover test.js
 ```
 
-Alternatively you can insert the line
+Alternativamente você também pode inserir a linha:
 
 ```json
 "coverage": "istanbul cover ./test.js"
 ```
 
-into the scripts section of your `package.json` and run
+no seu `package.json`, na sessão de scripts, e executar:
 
 ```sh
 npm run coverage
 ```
 
-This will create a directory in your project called **coverage**
-where you will find the generated coverage reports.
-In our case:
+Isto vai criar um diretório na pasta de seu projeto chamado __coverage__, aonde você poderá encontrar todos os relatórios gerados pelo istanbul.
+
+No nosso caso:
 [learn-istanbul/**coverage/lcov-report**/learning-istanbul/**test1.js.html**]()
-If you open the test1.js**.html** file in your browser
-you will see a *visual* coverage report:
 
-
+Se você abrir o arquivo `test1.js.html` no seu navegador, então será possível ver uma representação ___visual___ do seu relatório de cobertura:
 
 ![Basic coverage report](https://cloud.githubusercontent.com/assets/194400/14235269/27f13d9a-f9f1-11e5-9b43-5c8c659717e0.png)
 
-Istanbul gives us four code coverage metrics:
-* **Statements**: How many of the [statements](http://www.2ality.com/2012/09/expressions-vs-statements.html) in you code are executed.
-* **Branches**: Conditional statements create branches of code which may not be executed (e.g. `if/else`). This metric tells you how many of your branches have been executed.
-* **Functions**: The proportion of the functions you have defined which have been called.
-* **Lines**: The proportion of lines of code which have been executed.
+O Istanbul nos dá quatro métricas de cobertura:
 
-when you click `test.js` to view the coverage for the file you see:
+- __Statements__: Quantos dos [statements](http://www.2ality.com/2012/09/expressions-vs-statements.html) do seu código são executados.
+- __Branches__: Expressões condicionais (como `if`, `case`) criam _branches_ (ramificações) de código que podem não ser executadas (exemplo: `if/else`). Esta métrica te diz quantas dessas ramificações foram executadas.
+- __Funções__: A proporção de funções que foram definidas por você que foram de fato chamadas
+- __Linhas__: A quantidade de linhas, em proporção, que foram executadas.
+
+quando você clica no link `test.js` dentro do relatório para ver a _coverage_ do arquivo você receberá a seguinte tela:
 
 ![learn-istanbul-test js_html](https://cloud.githubusercontent.com/assets/194400/14235369/2e87e3cc-f9f4-11e5-8701-09a5c538f98e.png)
 
-Two things to note in the example above:
+Duas coisas que precisamos destacar no exemplo acima:
 
-- we only get 66.67% coverage because the
-only 2/3 of the code is being run
-- the 3rd line never gets executed because
-`false` is *always* **false**!
+- Nós só obtemos 66.67% da _coverage_ porque só 2/3 do código foi executado.
+- A terceira linha nunca vai ser executada porque `false` é _sempre_ ___false___!
 
-This may be a *trivial* example but it shows
-exactly where the useless code is.
+Este pode ser um exemplo meio _trivial_ mas ele mostra exatamente aonde o código inútil está.
 
-#### A more "Real World" Example
+#### Um problema mais "real"
 
-Try executing the `mischief.js` file by running `npm test`:
+Tente executar o arquivo `mischief.js` rodando `npm test`:
 
 ![learn-istanbul-terminal-run](https://cloud.githubusercontent.com/assets/194400/14235496/d5ae4f4e-f9f7-11e5-9388-c50dcca10cbf.png)
 
-
-What is wrong with the following picture?
+O quie está errado com a foto a seguir?
 
 ![96 % Code Coverage](https://cloud.githubusercontent.com/assets/194400/14235348/7d80c1de-f9f3-11e5-88bd-de9e4d792c3b.png)
 
-There are *plenty* of developers/organisations that can
-only *dream* about getting 96% code coverage!
-and yet when we inspect the *detail*, there's
-something ***big*** slipping through the net!
+Existem _muitos_ desenvolvedores/empresas que só sonham em ter 96% de _code coverage_! E ainda sim, quando espiamos os detalhes do teste, percebemos que deixamos uma coisa ___grande___ passar.
 
 ![learn-istanbul-mischief-on-line-34](https://cloud.githubusercontent.com/assets/194400/14235401/3d8c14fa-f9f5-11e5-946a-d57484b46ce7.png)
 
-We have **100%** *functional* code coverage, but only 50% "**Branch**" Coverage.
-This means one or more *conditional execution* branches is not being executed.
+Nós temos uma _code coverage_ 100% funcional, mas temos somente 50% da "__branch__ coverage", ou seja, isto significa que uma ou mais _ramificações condicionais_ não estão sendo executadas.
 
-Most of the time it will be something innocuous but what if a disgruntled
-person slipped in something like:
+Na maioria do tempo isso vai ser uma coisa qualquer, mas o que acontece se alguém desavisado deixar uma coisa assim passar:
 
 ```javascript
 if(employee.status === 'terminated' && employee.left - today() > 90) {
 	selfDestuct();
 }
 ```
-The **97% Coverage** is *not looking so hot anymore* ...
 
-What if we add a Test that *follows* the branch containing the rogue code?
-We reach our mythical 100% Coverage:
+De repente __97% de coverage__ não parece mais tão legal não é?
+
+E se adicionassemos um teste que _segue_ a ramificação que contem esse _rogue code_ (código não executado)? Vamos conseguir chegar na nossa mítica _coverage_ de 100%:
 
 ![learn-istanbul-mischief-100-percent](https://cloud.githubusercontent.com/assets/194400/14235536/2e274184-f9f9-11e5-8999-9dc92cbb3486.png)
 
-And if we simply allow this code to be promoted without further checks,
-the rogue code will be in production and soon forgotten.
+Mas se simplesmente deixarmos que este código seja promovido sem nenhuma checagem posterior, o _rogue code_ vai estar em produção e logo mais será esquecido.
 
 ![100 % Code Coverage includes Rogue Code](https://cloud.githubusercontent.com/assets/194400/14235588/c18e7ee6-f9fa-11e5-93c8-48ba6a25f2da.png)
 
-The solution here is to *not* rely (*solely*) on tools such as Istanbul to check code.
-Its *essential* would advocate a separation between the people writing the tests and the developers
-who write the code.
+A solução aqui é _não_ confiar (_somente_) em ferramentas como o Istanbul para checar o código. Isto faz com que haja uma separação entre as pessoas escrevendo os testes e os desenvolvedores que escrevem o código.
 
-And there is still *no substitute* for **Code Review**!
+E ainda sim, ___não existe nenhum substituto para uma boa___ __Code Review__!
 
 
 ![87% Test Coverage](http://i.imgur.com/NTI4Pxw.png)
 
 <br />
 
-## Tracking Coverage as-a-Service
+## Coverage como um serviço
 
-Knowing the coverage _locally_ is nice, but it's _way_ more useful to a team
-to track coverage over time using an _independent_ service.
-Thankfully, there are a few you can chose from:
+Saber a _coverage_ localmente é legal, mas é _muito_ mais fácil e útil para um time trackear seus testes ao longo do tempo usando um serviço independente.
+
+Ainda bem que temos como escolher:
 
 + ***Codecov***: https://codecov.io/#features
 + Coveralls: https://coveralls.io/features
 + Codeclimate: https://codeclimate.com/features
 + Codacy: https://codacy.com/product
 
-We have used all the services and found that ***Codecov*** is the *clear winner* for 3 reasons:
-
-1. *Easy* to integrate with existing Continuous Integration (CI) setup e.g. [Travis-CI](https://github.com/dwyl/learn-travis)
-2. Great stats and visualisations
-3. Pull request message informs if coverage has changed (*see below*)
+Nós usamos todos os serviços e descobrimos que o ___Codecov___ é o _vencedor_ por 3 razões:
+1. Fácil de integrar com sistemas de integração continua como o [Travis-CI](https://github.com/dwyl/learn-travis)
+2. Ótimas métricas e visualizações
+3. A mensagem da _Pull Request_ mostra se a coverage vai mudar com a nova adição do código (Veja abaixo)
 
 ### Setup
 
-1. Sign-up to use Codecov (*Free*) using your GitHub account: https://codecov.io/
-
-2. Select the repository you want to track coverage for from your list.
-
-3. Add a few lines to your CI configuration file e.g:
+1. Faça sua conta (grátis) no Codecov usando sua conta do GitHub: https://codecov.io/
+2. Selecione o repositório que você irá trackear a _coverage_ a partir da lista
+3. Adicione algumas linhas no seu provedor de integração contínua, por exemplo no Travis:
 
 ```yml
 before_install:
@@ -211,66 +189,53 @@ before_install:
 after_success:
   - codecov --file coverage/lcov.info --disable search
 ```
-This installs the Codecov reporter tool on your CI and sends the `lcov.info` report
-(_which gets generated by Istanbul_) to Codecov where it's kept safely.
 
-> Real-world example in `.travis.yml` file: https://github.com/dwyl/hapi-auth-jwt2/blob/master/.travis.yml#L7-L10
+Este script vai instalar o Codecode Reporter Toll no seu CI e enviar o arquivo `lcov.info` (_que é gerado pelo Istanbul_) para o Codecov, aonde ele será mantido em segurança.
 
+> Exemplo real em um arquivo `.travis.yml`: https://github.com/dwyl/hapi-auth-jwt2/blob/master/.travis.yml#L7-L10
 
-Now when you create a pull request your CI will send a coverage report to Codecov
-and Codecov will leave a *comment* on the PR:
+Agora quando você criar uma _pull request_, seu provedor de CI vai enviar esse relatório de _code coverage_ para o Codecov, e então o Codecov vai deixar uma mensagem como _comentário_ na sua PR:
 
 ![learn-istanbul-large-project-with-100-test-coverage](https://cloud.githubusercontent.com/assets/194400/17811233/964272d4-6619-11e6-8a42-32752453169b.png)
 
-> Yes, it's "_possible_" to have a "[large](https://github.com/FAC-GM/app/pull/553)" project with 100% Test Coverage.
-(ALL DWYL projects do!)
+> Sim, é "_possível_" ter um repositório "[grande](https://github.com/FAC-GM/app/pull/553)" com 100% de _coverage_ (Todos os projetos da DWYL tem)
 
-So you can see at a *glance* if new code is being added without corresponding tests ...
+Então você consegue ver ao bater o olho se o novo código está sendo adicionado sem corresponder aos testes:
 
 ![learn-istanbul-codecov-lower](https://cloud.githubusercontent.com/assets/194400/17810879/96453d04-6617-11e6-8d3d-bfa3175d9973.png)
 
-When the coverage is lower the Pull Request "fails":
+Quando a _Coverage_ diminui, a PR falha:
 
 ![learn-istanbul-pr-fails-on-lower-coverage](https://cloud.githubusercontent.com/assets/194400/17811085/d0a93364-6618-11e6-9694-12a033f2be63.png)
 
-
-> **Note**: if you want to *prevent* people (*your team*) from creating Pull Requests with
-less than an agreed level of coverage (_e.g 100%!!_), add a [`coverage`](https://github.com/dwyl/hapi-auth-jwt2/blob/452368830d0d7971f93219245f6cad56f2ece9e6/package.json#L57) checking script and corresponding [`pre-commit hook`](https://github.com/dwyl/hapi-auth-jwt2/blob/452368830d0d7971f93219245f6cad56f2ece9e6/package.json#L64). More on pre-commit hooks: https://github.com/dwyl/learn-pre-commit
+> __Nota__: se você quer _evitar_ que pessoas (_seu time_) crie _pull requests_ com menos do que o nível acordado de _coverage_ (100%, por exemplo) adicione um script de checagem de [`coverage`](https://github.com/dwyl/hapi-auth-jwt2/blob/452368830d0d7971f93219245f6cad56f2ece9e6/package.json#L57) e um [`pre-commit hook`](https://github.com/dwyl/hapi-auth-jwt2/blob/452368830d0d7971f93219245f6cad56f2ece9e6/package.json#L64) correspondente. Mais _pre-commit hooks_: https://github.com/dwyl/learn-pre-commit
 
 
-#### Add a "Badge" to your Readme (*Optional/Recommended*)
+#### Adicione uma badge no seu readme (_opcional/recomendado_)
 
-Click on the `Settings` tab for your chosen repo, click on `Badge` and click
-`Copy` e.g:
+Vá para `Settings` no seu repositório do Codecov, clique em `Badge` e selecione `Copy`:
 
 ![codecov-settings-badge](https://cloud.githubusercontent.com/assets/194400/17809827/122398f0-6611-11e6-8ac5-c2f828ec43c8.png)
 
-Then paste the markdown into your Readme.
+Então cole o markdown no seu readme.
 
-> More about badges: https://github.com/dwyl/repo-badges
+> Descubra mais sobre _badges_: https://github.com/dwyl/repo-badges
 
-### Further Reading:
+### Leitura complementar:
 
-+ JavaScript Code Coverage Dashboard with Codecov.io by @ariya
++ Criando um dashboard de code coverage com Javascript e Codecov, por @ariya
 https://ariya.io/2015/08/javascript-code-coverage-dashboard-with-codecov-io
 
+### Leitura ainda mais complementar
 
-> **Note**: DWYL is not _financially_ affiliated with Codecov,
-but we :heart: [@stevepeak](https://github.com/stevepeak) and the product he
-has built. They are focussed on
-[_doing one thing **really well**_](https://www.google.co.uk/search?q=do+one+thing+well&tbm=isch)
-and have innovated a lot in code coverage tracking making developers lives *much* better.
+- Tutorial basico do Ariay: http://ariya.ofilabs.com/2012/12/javascript-code-coverage-with-istanbul.html
+- _Coverage_ usando Jasmine: http://architects.dzone.com/articles/code-coverage-jasmine-tests
 
-### Background Reading
-
-- Ariay's basic tutorial: http://ariya.ofilabs.com/2012/12/javascript-code-coverage-with-istanbul.html
-- Jasmine Test Coverage: http://architects.dzone.com/articles/code-coverage-jasmine-tests
-
-Istanbul (the JavaScript Code Coverage tool)
+Istanbul (A ferramenta de _Code Coverage_ para Javascript)
 https://github.com/gotwarlost/istanbul
-should not to be confused with [istanbul](https://wiki.gnome.org/Istanbul)
-the desktop screen recorder, they are totally diferent animals!
-Shame about the name collision... :-(
+__não__ deve ser confundida com [istanbul](https://wiki.gnome.org/Istanbul)
+o gravador de desktop, eles são animais completamente diferentes!
+Uma pena a colisão de nomes... :-(
 
 [![HitCount](https://hitt.herokuapp.com/dwyl/learn-istanbul.svg)](https://github.com/dwyl/learn-istanbul)
 [![Join the chat at https://gitter.im/dwyl/chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dwyl/chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
