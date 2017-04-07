@@ -1,11 +1,19 @@
-# Learn Istanbul
+# Aprenda Istanbul
 
 [![Build Status](https://travis-ci.org/dwyl/learn-istanbul.svg?branch=master)](https://travis-ci.org/dwyl/learn-istanbul)
 [![codecov](https://codecov.io/gh/dwyl/learn-istanbul/branch/master/graph/badge.svg)](https://codecov.io/gh/dwyl/learn-istanbul)
 [![devDependency Status](https://david-dm.org/dwyl/learn-istanbul/dev-status.svg)](https://david-dm.org/dwyl/learn-istanbul#info=devDependencies)
 
 
-Learn how to use Istanbul to check/track Code Coverage in your JavaScript projects.
+> Aprenda como usar o Istanbul para checar/monitorar o _Code Coverage_ em seus projetos Javascript.
+
+❗ Notas de tradução
+=================
+
+- Alguns trechos de código foram traduzidos para que o entendimento seja melhor de acordo com o contexto inserido
+- Algumas palavras são melhor definidas em sua língua original, portanto tais palavras **não** foram traduzidas. As mesmas terão um link de referência após para melhor entendimento
+- O texto possui algumas alterações de sintaxe e estrutura para facilitar a tradução.
+- O texto também pode possuir algumas alterações de estrutura para se adaptar à lingua traduzida
 
 - - -
 
@@ -266,3 +274,11 @@ Shame about the name collision... :-(
 
 [![HitCount](https://hitt.herokuapp.com/dwyl/learn-istanbul.svg)](https://github.com/dwyl/learn-istanbul)
 [![Join the chat at https://gitter.im/dwyl/chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dwyl/chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Licença
+
+MIT © [Dwyl](http://www.dwyl.io), tradução [Lucas Santos](http://lsantos.me)
+
+- Fale com o tradutor diretamente em [lhs.santoss@gmail.com](mailto:lhs.santoss@gmail.com) ou no twitter [@_staticvoid](http://twitter.com/_staticvoid)
+
+> Tradução feita de forma independente, sem nenhuma conexão com o autor.
