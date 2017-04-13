@@ -119,7 +119,7 @@ Duas coisas que precisamos destacar no exemplo acima:
 
 Este pode ser um exemplo meio _trivial_ mas ele mostra exatamente aonde o código inútil está.
 
-#### Um problema mais "real"
+#### Um problema mais "real"
 
 Tente executar o arquivo `mischief.js` rodando `npm test`:
 
@@ -178,7 +178,7 @@ Nós usamos todos os serviços e descobrimos que o ___Codecov___ é o _vencedor_
 2. Ótimas métricas e visualizações
 3. A mensagem da _Pull Request_ mostra se a coverage vai mudar com a nova adição do código (Veja abaixo)
 
-### Setup
+### Setup
 
 1. Faça sua conta (grátis) no Codecov usando sua conta do GitHub: https://codecov.io/
 2. Selecione o repositório que você irá trackear a _coverage_ a partir da lista
